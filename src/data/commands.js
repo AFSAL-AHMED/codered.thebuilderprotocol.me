@@ -1,0 +1,92 @@
+export const commandHelp = [
+  { cmd: 'help', desc: 'Show available commands' },
+  { cmd: 'sys status', desc: 'Display system resource overview' },
+  { cmd: 'service logs --api', desc: 'View API gateway service logs' },
+  { cmd: 'traffic routing', desc: 'Show traffic distribution and routing status' },
+  { cmd: 'db connections', desc: 'Database connection pool diagnostics' },
+  { cmd: 'config inspect --gateway', desc: 'Inspect gateway configuration file' },
+  { cmd: 'clear', desc: 'Clear terminal output' },
+];
+
+export const systemStatus = [
+  '┌──────────────────────────────────────────────┐',
+  '│         SYSTEM RESOURCE OVERVIEW             │',
+  '├──────────────────────────────────────────────┤',
+  '│ CPU Usage:       94.2%    [████████████░░]   │',
+  '│ Memory:          87.1%    [██████████░░░░]   │',
+  '│ Disk I/O:        45.3%    [██████░░░░░░░░]   │',
+  '│ Network In:      2.4 Gbps [████████░░░░░░]   │',
+  '│ Network Out:     890 Mbps [██████░░░░░░░░]   │',
+  '│ Load Average:    18.7 / 4 cores [CRITICAL]   │',
+  '├──────────────────────────────────────────────┤',
+  '│ Uptime: 0d 4h 23m | Processes: 847           │',
+  '│ Status: ██ DEGRADED                           │',
+  '└──────────────────────────────────────────────┘',
+];
+
+export const apiLogs = [
+  { level: 'ERROR', msg: '504 Gateway Timeout - upstream connection pool exhausted' },
+  { level: 'WARN', msg: 'Connection pool at capacity (5/5 connections)' },
+  { level: 'ERROR', msg: 'Cannot acquire connection - pool drained' },
+  { level: 'FATAL', msg: 'Service mesh circuit breaker OPEN for api-gateway' },
+  { level: 'ERROR', msg: '504 Gateway Timeout - request exceeded 3000ms threshold' },
+  { level: 'WARN', msg: 'Upstream keepAlive disabled - creating new TCP connections per request' },
+  { level: 'ERROR', msg: 'Connection refused: db-primary.internal:5432 - too many clients' },
+  { level: 'INFO', msg: 'Retry attempt 1/1 for upstream api-gateway' },
+  { level: 'ERROR', msg: '504 Gateway Timeout - upstream unresponsive after 3s' },
+  { level: 'FATAL', msg: 'Cascading failure detected across service mesh' },
+];
+
+export const trafficRouting = [
+  '┌──────────────────────────────────────────────┐',
+  '│         TRAFFIC ROUTING STATUS               │',
+  '├──────────────────────────────────────────────┤',
+  '│ Load Balancer:   HAProxy v2.8                │',
+  '│ Algorithm:       Round-Robin                  │',
+  '├──────────────────────────────────────────────┤',
+  '│ Backend Nodes:                                │',
+  '│   prod-node-01   ██ UP     42% traffic       │',
+  '│   prod-node-02   ██ UP     38% traffic       │',
+  '│   prod-node-03   ██ DRAIN  12% traffic       │',
+  '│   prod-node-04   ░░ DOWN    8% traffic       │',
+  '├──────────────────────────────────────────────┤',
+  '│ Request Rate:    12,847 req/s                 │',
+  '│ Error Rate:      87.3% (504/502 responses)   │',
+  '│ Avg Latency:     11,240ms                     │',
+  '│ Queue Depth:     2,341 waiting                │',
+  '├──────────────────────────────────────────────┤',
+  '│ ⚠ NOTE: High error rate correlates with      │',
+  '│   upstream connection exhaustion. Check       │',
+  '│   database pool and gateway config.           │',
+  '└──────────────────────────────────────────────┘',
+];
+
+export const dbConnections = [
+  '┌──────────────────────────────────────────┐',
+  '│ DATABASE CONNECTION POOL STATUS          │',
+  '├──────────────────────────────────────────┤',
+  '│ Active Connections:    5 / 5   [██████]  │',
+  '│ Waiting Requests:     847      [CRITICAL]│',
+  '│ Avg Wait Time:        12.4s    [DANGER]  │',
+  '│ Timeout Failures:     2,341    [ALERT]   │',
+  '│ Pool Size Limit:      5        [DEFAULT] │',
+  '└──────────────────────────────────────────┘',
+  '> WARNING: Pool size is at factory default (5).',
+  '> Production recommendation: 50-200 connections.',
+];
+
+export const gatewayConfig = [
+  '// gateway.config.js',
+  'module.exports = {',
+  '  upstream: {',
+  '    timeout: 3000,        // ⚠️ 3 seconds - DANGEROUSLY LOW',
+  '    retries: 1,',
+  '    keepAlive: false,     // ⚠️ Connection reuse disabled',
+  '  },',
+  '  pool: {',
+  '    maxConnections: 5,    // ⚠️ Factory default - NOT production ready',
+  '    minConnections: 1,',
+  '    idleTimeout: 10000,',
+  '  }',
+  '};',
+];

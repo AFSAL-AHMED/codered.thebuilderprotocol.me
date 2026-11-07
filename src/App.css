@@ -1,0 +1,168 @@
+/* ─── CODE RED: Main Application Layout ─── */
+
+/* Grid layout for the command center */
+.app-grid {
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Title bar */
+.title-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: #F4F4F0;
+  border-bottom: 2px solid #1A1A1A;
+  user-select: none;
+}
+
+.title-bar .title-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.title-bar .title-left .red-dot {
+  width: 10px;
+  height: 10px;
+  background: #FF5722;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.title-bar h1 {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #1A1A1A;
+  margin: 0;
+  line-height: 1;
+}
+
+.title-bar .subtitle {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #888;
+  margin: 0;
+}
+
+.title-bar .timer {
+  font-size: 20px;
+  font-weight: 800;
+  color: #FF5722;
+  letter-spacing: 2px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Main content grid: terminal left, metrics+editor right */
+.main-content {
+  display: grid;
+  grid-template-columns: 55% 45%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.left-pane {
+  border-right: 2px solid #1A1A1A;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.right-pane {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.right-top {
+  border-bottom: 2px solid #1A1A1A;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.right-bottom {
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Status bar */
+.status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 20px;
+  background-color: #1A1A1A;
+  border-top: 2px solid #1A1A1A;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.status-bar .phase {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-bar .phase-label {
+  color: #FF5722;
+}
+
+.status-bar .clues {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.status-bar .clue-dot {
+  width: 8px;
+  height: 8px;
+  border: 1px solid #555;
+  display: inline-block;
+}
+
+.status-bar .clue-dot.found {
+  background-color: #4CAF50;
+  border-color: #4CAF50;
+}
+
+.status-bar .health {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.status-bar .health-value {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Responsive: stack on smaller screens */
+@media (max-width: 900px) {
+  .main-content {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+
+  .left-pane {
+    border-right: none;
+    border-bottom: 2px solid #1A1A1A;
+  }
+
+  .right-pane {
+    grid-template-rows: 1fr 1fr;
+  }
+}
